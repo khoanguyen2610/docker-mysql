@@ -1,63 +1,57 @@
-version: '3'
+version: "3"
 
 services:
-    redis01:
-        container_name: redis01
-        build: ./redis
-        ports:
-            - 6379:6379
+    # mysql-server-01:
+    #     container_name: mysql-server-01
+    #     build: ./mysql-server
+    #     ports:
+    #         - 3301:3306
+    #     networks:
+    #         - host
+    #     env_file:
+    #         - ./mysql-server/env/mysql-server.env
+    #     # volumes:
+    #     #     - './mysql-server/data:/var/lib/mysql'
+    #     command: ["mysqld","--server_id=1","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
+
+    # mysql-server-02:
+    #     container_name: mysql-server-02
+    #     build: ./mysql-server
+    #     ports:
+    #         - 3302:3306
+    #     networks:
+    #         - host
+    #     env_file:
+    #         - ./mysql-server/env/mysql-server.env
+    #     # volumes:
+    #     #     - './mysql-server/data:/var/lib/mysql'
+    #     command: ["mysqld","--server_id=2","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
+    
+    # mysql-server-03:
+    #     container_name: mysql-server-03
+    #     build: ./mysql-server
+    #     ports:
+    #         - 3303:3306
+    #     networks:
+    #         - host
+    #     env_file:
+    #         - ./mysql-server/env/mysql-server.env
+    #     # volumes:
+    #     #     - './mysql-server/data:/var/lib/mysql'
+    #     command: ["mysqld","--server_id=3","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
+    mysql-shell:
+        container_name: mysql-shell
+        # image: neumayer/mysql-shell-batch
+        build: ./mysql-shell
         networks:
             - host
-        env_file:
-            - './redis/env/common_variables.env'
-            - './redis/env/master_variables.env'
+        # env_file:
+        #     - ./mysql-shell/env/mysql-shell.env
         # volumes:
-        #     - './redis/data/6379:/etc/redis/data'
-
-    redis02:
-        container_name: redis02
-        build: ./redis
-        ports:
-            - 6380:6379
-        depends_on:
-            - redis01
-        networks:
-            - host
-        env_file:
-            - './redis/env/common_variables.env'
-            - './redis/env/slave_variables.env'
-        # volumes:
-        #     - './redis/data/6380:/etc/redis/data'
-
-    redis03:
-        container_name: redis03
-        build: ./redis
-        ports:
-            - 6381:6379
-        depends_on:
-            - redis01
-        networks:
-            - host
-        env_file:
-            - './redis/env/common_variables.env'
-            - './redis/env/slave_variables.env'
-        # volumes:
-        #     - './redis/data/6381:/etc/redis/data'
-
-    proxy:
-        container_name: haproxy
-        build: ./haproxy
-        depends_on:
-            - redis01
-            - redis02
-            - redis03
-        networks:
-            - host
-        ports:
-            - '9000:9000'
-            - '6387:6387'
-            - '6388:6388'
-
+        #     - ./scripts/:/scripts/
+        # depends_on:
+            # - mysql-server-01
+            # - mysql-server-02
+            # - mysql-server-03
 networks:
-    host:
-
+  host:
