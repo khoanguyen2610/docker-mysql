@@ -24,8 +24,10 @@ if [ "$1" = 'mysqlsh' ]; then
     if [ "$MYSQLSH_SCRIPT" ]; then
 	mysqlsh "$MYSQL_USER@$MYSQL_HOST:$MYSQL_PORT" --dbpassword="$MYSQL_PASSWORD" -f "$MYSQLSH_SCRIPT" || true
     fi
-    # exit 0
+    exit 0
 fi
 
 exec "$@"
+
 tail -f /dev/null
+
