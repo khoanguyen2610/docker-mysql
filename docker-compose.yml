@@ -62,6 +62,7 @@ services:
             - host
         ports:
             - "6446:6446"
+            - "6447:6447"
         depends_on:
             - mysql-server-01
             - mysql-server-02

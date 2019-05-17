@@ -29,5 +29,3 @@ fi
 
 exec "$@"
 
-tail -f /dev/null
-
