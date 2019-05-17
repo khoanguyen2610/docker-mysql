@@ -12,10 +12,12 @@ try {
 		cluster.addInstance({user: "root", host: "mysql-server-03", password: dbPass})
 		print('.\nInstances successfully added to the cluster.');
 		print('\nInnoDB cluster deployed successfully.\n');
+		cluster.status();
 	} else {
 		// Existed Cluster
 		var cluster = dba.getCluster();
 		cluster.rescan();
+		cluster.status();
 	}
 } catch(e) {
   	print('\nThe InnoDB cluster could not be created.\n\nError: ' + e.message + '\n');

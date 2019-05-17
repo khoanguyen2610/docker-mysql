@@ -14,5 +14,4 @@ COPY entrypoint.sh /entrypoint.sh
 COPY setupCluster.js /setupCluster.js
 RUN chmod +x /entrypoint.sh /setupCluster.js
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["mysqlsh", ";", "tail", "-f", "/dev/null"]
-
+CMD ["mysqlsh"]

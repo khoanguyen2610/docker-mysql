@@ -1,2 +1,2 @@
-#!/bin/bash
-mysqld --server_id=132 --binlog_checksum=NONE --gtid_mode=ON --enforce_gtid_consistency=ON --log_bin --log_slave_updates=ON --master_info_repository=TABLE --relay_log_info_repository=TABLE --transaction_write_set_extraction=XXHASH64 --user=mysql --skip-host-cache --skip-name-resolve --default_authentication_plugin=mysql_native_password
+#!/bin/sh
+mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "SET GLOBAL @@server_id=331133";

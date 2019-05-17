@@ -2,7 +2,7 @@
 set -e
 
 if [ "$1" = 'mysqlsh' ]; then
-
+echo 'fired'
     if [[ -z $MYSQL_HOST || -z $MYSQL_PORT || -z $MYSQL_USER || -z $MYSQL_PASSWORD ]]; then
 	    echo "We require all of"
 	    echo "    MYSQL_HOST"
@@ -24,7 +24,8 @@ if [ "$1" = 'mysqlsh' ]; then
     if [ "$MYSQLSH_SCRIPT" ]; then
 	mysqlsh "$MYSQL_USER@$MYSQL_HOST:$MYSQL_PORT" --dbpassword="$MYSQL_PASSWORD" -f "$MYSQLSH_SCRIPT" || true
     fi
-    exit 0
+	# Keep container running
+    tail -f /dev/null
 fi
 
 exec "$@"
