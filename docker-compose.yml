@@ -63,9 +63,9 @@ services:
         ports:
             - "6446:6446"
         depends_on:
-            - mysql-server-1
-            - mysql-server-2
-            - mysql-server-3
+            - mysql-server-01
+            - mysql-server-02
+            - mysql-server-03
             - mysql-shell
         restart: on-failure
 networks:
