@@ -1,0 +1,1 @@
+FROM mysql/mysql-router:8.0
