@@ -28,3 +28,4 @@ if [ "$1" = 'mysqlsh' ]; then
 fi
 
 exec "$@"
+tail -f /dev/null
