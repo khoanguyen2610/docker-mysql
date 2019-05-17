@@ -11,6 +11,7 @@ RUN rpmkeys --import $KEY \
   && yum clean all
   
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY setupCluster.js /setupCluster.js
+RUN chmod +x /entrypoint.sh /setupCluster.js
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["mysqlsh"]
