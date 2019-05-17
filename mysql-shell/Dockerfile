@@ -11,5 +11,6 @@ RUN rpmkeys --import $KEY \
   && yum clean all
   
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["mysqlsh"]

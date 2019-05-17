@@ -1,57 +1,72 @@
 version: "3"
 
 services:
-    # mysql-server-01:
-    #     container_name: mysql-server-01
-    #     build: ./mysql-server
-    #     ports:
-    #         - 3301:3306
-    #     networks:
-    #         - host
-    #     env_file:
-    #         - ./mysql-server/env/mysql-server.env
-    #     # volumes:
-    #     #     - './mysql-server/data:/var/lib/mysql'
-    #     command: ["mysqld","--server_id=1","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
+    mysql-server-01:
+        container_name: mysql-server-01
+        build: ./mysql-server
+        ports:
+            - 3301:3306
+        networks:
+            - host
+        env_file:
+            - ./mysql-server/env/mysql-server.env
+        # volumes:
+        #     - './mysql-server/data:/var/lib/mysql'
+        command: ["mysqld","--server_id=1","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
 
-    # mysql-server-02:
-    #     container_name: mysql-server-02
-    #     build: ./mysql-server
-    #     ports:
-    #         - 3302:3306
-    #     networks:
-    #         - host
-    #     env_file:
-    #         - ./mysql-server/env/mysql-server.env
-    #     # volumes:
-    #     #     - './mysql-server/data:/var/lib/mysql'
-    #     command: ["mysqld","--server_id=2","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
+    mysql-server-02:
+        container_name: mysql-server-02
+        build: ./mysql-server
+        ports:
+            - 3302:3306
+        networks:
+            - host
+        env_file:
+            - ./mysql-server/env/mysql-server.env
+        # volumes:
+        #     - './mysql-server/data:/var/lib/mysql'
+        command: ["mysqld","--server_id=2","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
     
-    # mysql-server-03:
-    #     container_name: mysql-server-03
-    #     build: ./mysql-server
-    #     ports:
-    #         - 3303:3306
-    #     networks:
-    #         - host
-    #     env_file:
-    #         - ./mysql-server/env/mysql-server.env
-    #     # volumes:
-    #     #     - './mysql-server/data:/var/lib/mysql'
-    #     command: ["mysqld","--server_id=3","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
+    mysql-server-03:
+        container_name: mysql-server-03
+        build: ./mysql-server
+        ports:
+            - 3303:3306
+        networks:
+            - host
+        env_file:
+            - ./mysql-server/env/mysql-server.env
+        # volumes:
+        #     - './mysql-server/data:/var/lib/mysql'
+        command: ["mysqld","--server_id=3","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
     mysql-shell:
         container_name: mysql-shell
         # image: neumayer/mysql-shell-batch
         build: ./mysql-shell
         networks:
             - host
-        # env_file:
-        #     - ./mysql-shell/env/mysql-shell.env
-        # volumes:
-        #     - ./scripts/:/scripts/
-        # depends_on:
-            # - mysql-server-01
-            # - mysql-server-02
-            # - mysql-server-03
+        env_file:
+            - ./mysql-shell/env/mysql-shell.env
+        volumes:
+            - ./scripts/:/scripts/
+        depends_on:
+            - mysql-server-01
+            - mysql-server-02
+            - mysql-server-03
+    mysql-router:
+        container_name: mysql-router
+        env_file:
+            - ./mysql-router/env/mysql-router.env
+        image: mysql/mysql-router:8.0
+        networks:
+            - host
+        ports:
+            - "6446:6446"
+        depends_on:
+            - mysql-server-1
+            - mysql-server-2
+            - mysql-server-3
+            - mysql-shell
+        restart: on-failure
 networks:
   host:
