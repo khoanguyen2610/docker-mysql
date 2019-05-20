@@ -13,7 +13,6 @@ services:
         # volumes:
         #     - './mysql-server/data:/var/lib/mysql'
         command: ["mysqld","--server_id=1","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
-
     mysql-server-02:
         container_name: mysql-server-02
         build: ./mysql-server
@@ -26,7 +25,6 @@ services:
         # volumes:
         #     - './mysql-server/data:/var/lib/mysql'
         command: ["mysqld","--server_id=2","--binlog_checksum=NONE","--gtid_mode=ON","--enforce_gtid_consistency=ON","--log_bin","--log_slave_updates=ON","--master_info_repository=TABLE","--relay_log_info_repository=TABLE","--transaction_write_set_extraction=XXHASH64","--user=mysql","--skip-host-cache","--skip-name-resolve","--default_authentication_plugin=mysql_native_password"]
-    
     mysql-server-03:
         container_name: mysql-server-03
         build: ./mysql-server
