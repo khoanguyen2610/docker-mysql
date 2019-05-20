@@ -9,7 +9,7 @@ services:
         networks:
             - host
         env_file:
-            - common.env
+            - ./common.env
             - ./mysql-server/env/mysql-server.env
         # volumes:
         #     - './mysql-server/data:/var/lib/mysql'
@@ -23,7 +23,7 @@ services:
         networks:
             - host
         env_file:
-            - common.env
+            - ./common.env
             - ./mysql-server/env/mysql-server.env
         # volumes:
         #     - './mysql-server/data:/var/lib/mysql'
@@ -37,7 +37,7 @@ services:
         networks:
             - host
         env_file:
-            - common.env
+            - ./common.env
             - ./mysql-server/env/mysql-server.env
         # volumes:
         #     - './mysql-server/data:/var/lib/mysql'
@@ -48,7 +48,7 @@ services:
         networks:
             - host
         env_file:
-            - common.env
+            - ./common.env
             - ./mysql-shell/env/mysql-shell.env
         depends_on:
             - mysql-server-01
@@ -58,7 +58,7 @@ services:
         container_name: mysql-router
         build: ./mysql-router
         env_file:
-            - common.env
+            - ./common.env
             - ./mysql-router/env/mysql-router.env
         networks:
             - host
